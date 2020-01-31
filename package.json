@@ -1,0 +1,19 @@
+{
+  "name": "mp_create_file",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "make-mp-file": "./index.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "chalk": "^3.0.0",
+    "commander": "^4.1.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ertsul",
+  "license": "ISC"
+}
