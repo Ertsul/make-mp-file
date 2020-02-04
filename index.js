@@ -1,9 +1,10 @@
 #! /usr/bin/env node
 
 const path = require('path');
-const util = require('./util.js');
 const chalk = require('chalk');
 const program = require('commander');
+const util = require('./util.js');
+const addPage2Json = require('./addPage2Json.js');
 
 // 命令行参数
 program
@@ -27,7 +28,7 @@ program
         return;
       }
       const working = util.getWorkingPath();
-      const dirPath = path.resolve(working, 'src', type, name); // 目标目录
+      const dirPath = path.resolve(working, 'src', `${type}s`, name); // 目标目录
       const dirPromiseRes = await util.dirIfExist(dirPath);
       if (dirPromiseRes) {
         console.log(chalk.green(':::::::: 文件目录已存在!', util.dirIfExist(dirPath)));
@@ -42,16 +43,23 @@ program
       const jsonPath = path.resolve(dirPath, name + '.json');
       // js 文件
       const jsPath = path.resolve(dirPath, name + '.js');
+      // app.json 文件
+      const appJsonPath = path.resolve(working, 'src', 'app.json');
       // js 文件内容
-      let jsContent = type === 'pages' ?
+      const jsContent = type === 'page' ?
         'Page({})' :
-        'Component({})'
+        'Component({})';
+      // json 文件内容
+      const jsonContent = type === 'page' ?
+        '{}' :
+        '{"component": true}';
       let pArr = [
         util.writeFile(wxmlPath, ''),
         util.writeFile(lessPath, ''),
-        util.writeFile(jsonPath, '{}'),
+        util.writeFile(jsonPath, jsonContent),
         util.writeFile(jsPath, jsContent),
-      ]
+      ];
+      type === 'page' && pArr.push(addPage2Json(name, appJsonPath));
       const pRes = await Promise.all(pArr);
       console.log(chalk.blue(':::::::: 完成！'));
     } catch (error) {

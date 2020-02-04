@@ -3,6 +3,7 @@ const path = require('path');
 const util = require('util');
 
 const writeFile = util.promisify(fs.writeFile);
+const readFile = util.promisify(fs.readFile);
 const mkdir = util.promisify(fs.mkdir);
 const dirIfExist = targetPath => {
   return new Promise(async (resolve, reject) => {
@@ -19,6 +20,7 @@ const getWorkingPath = () => {
 }
 
 module.exports = {
+  readFile,
   writeFile,
   mkdir,
   dirIfExist,
