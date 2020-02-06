@@ -3,6 +3,9 @@
 ## 安装
 - 安装依赖：*npm install*
 - 链接生成本地命令：*npm link*
+## 命令
+- `make-mp-file -t page -n name`
+- `make-mp-file -t component -n name`
 ## 参数
-- *-t* 或 *--type*：*pages* 或者 *components*
+- *-t* 或 *--type*：*page* 或者 *component*
 - *-n* 或 *--name*：组件或者页面名称。
